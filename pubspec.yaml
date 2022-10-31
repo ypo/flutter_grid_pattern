@@ -1,6 +1,6 @@
 name: flutter_grid_pattern
-description: A new Flutter package project.
-version: 0.0.1
+description: Flutter Sliver Grid delegate to generate box patterns for SliverGrid.
+version: 1.0.0
 homepage:
 
 environment:

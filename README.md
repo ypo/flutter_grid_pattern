@@ -1,39 +1,142 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+# flutter_grid_patterm
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Flutter Sliver Grid delegate that allow to generate box patterns for SliverGrid.
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+![Demo](https://raw.githubusercontent.com/ypo/flutter_grid_pattern/master/web/demo1.gif)
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
-## Usage
+In the `pubspec.yaml` of your flutter project, add the following dependency:
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  ...
+  flutter_grid_patterm: <latest_version>
 ```
 
-## Additional information
+## Example
+---
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:flutter_grid_pattern/flutter_grid_pattern.dart';
+
+class GridPatternDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: CustomScrollView(slivers: [
+          SliverGrid(
+            // Attach SliverGridPatternDelegate to SliverGrid
+            gridDelegate: SliverGridPatternDelegate(patterns: [
+              // Add your list of patterns
+              PatternNTiles(tileHeight: 150, nb: 3),
+              PatternRow(patterns: [
+                PatternNTiles(tileHeight: 150, nb: 1),
+                PatternNTiles(tileHeight: 150, nb: 2),
+              ]),
+            ]),
+            delegate:
+                SliverChildBuilderDelegate((BuildContext context, int index) {
+              return Container(
+                child: Text("tile $index")
+              );
+            }),
+          )
+        ]));
+  }
+}
+```
+
+## Patterns
+---
+
+### [PatternNTiles](https://github.com/ypo/flutter_grid_pattern/blob/master/lib/src/patterns/patternntiles.dart)
+
+
+Create an horizontal list of tile. All tiles have the same width and a fixed height.
+
+| Parameter |  Description  |
+| ------------ |  ------------ |
+| tileHeight  | Height of the tiles |
+| nb | Number of tiles |
+
+### Example
+
+```dart
+// Pattern is a row composed of 4 tiles
+SliverGridPatternDelegate(patterns: [
+    PatternNTiles(tileHeight: 75, nb: 4),
+]),
+)
+```
+
+![result](https://raw.githubusercontent.com/ypo/flutter_grid_pattern/master/web/ntiles.webp)
+
+### [PatternRow](https://github.com/ypo/flutter_grid_pattern/blob/master/lib/src/patterns/patternrow.dart)
+
+Create a row that contains a list of patterns. All pattern of the list have the same width. The height of the row is the height of the highest pattern in the list.
+
+| Parameter |  Description  |
+| ------------ |  ------------ |
+| patterns  | A list of patterns |
+
+### Example
+
+```dart
+// Pattern is composed of a row containing 2 patterns :
+// First 50% : 1 tile
+// Last 50% : row of 2 tiles
+SliverGridPatternDelegate(patterns: [
+    PatternRow(patterns: [
+        PatternNTiles(tileHeight: 75, nb: 1),
+        PatternNTiles(tileHeight: 75, nb: 2),
+    ]),
+]),
+)
+```
+
+![result](https://raw.githubusercontent.com/ypo/flutter_grid_pattern/master/web/row1.webp)
+
+### [PatternCol](https://github.com/ypo/flutter_grid_pattern/blob/master/lib/src/patterns/patterncol.dart)
+
+Place a list of patterns in a column.
+
+| Parameter |  Description  |
+| ------------ |  ------------ |
+| patterns  | A list of patterns |
+
+### Example
+
+```dart
+// A column composed of 1 tile followed by a row of 2 tiles
+SliverGridPatternDelegate(patterns: [
+    PatternCol(patterns: [
+        PatternNTiles(tileHeight: 400, nb: 1),
+        PatternNTiles(tileHeight: 200, nb: 2),
+    ]),
+]),
+)
+```
+
+![result](https://raw.githubusercontent.com/ypo/flutter_grid_pattern/master/web/col1.webp)
+
+### Example 2
+
+```dart
+// A row composed of 2 vertical tiles followed horizontally by another tile
+SliverGridPatternDelegate(patterns: [
+    PatternRow(patterns: [
+      PatternCol(patterns: [
+        PatternNTiles(tileHeight: 100, nb: 1),
+        PatternNTiles(tileHeight: 100, nb: 1),
+      ]),
+      PatternNTiles(tileHeight: 200, nb: 1),
+    ]),
+]),
+)
+```
+
+![result](https://raw.githubusercontent.com/ypo/flutter_grid_pattern/master/web/col2.webp)
