@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_grid_pattern/flutter_grid_pattern.dart';
 
@@ -25,30 +27,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Grid Pattern Demo'),
+      home: GridPatternDemo(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class GridPatternDemo extends StatelessWidget {
   final _colorTable = [
     Colors.amber,
     Colors.blue,
@@ -65,51 +49,53 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.teal
   ];
 
+  GridPatternDemo({super.key});
+
   Color _colorFromIndex(int index) {
     return _colorTable[index % _colorTable.length];
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
         appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
+          title: const Text("Flutter Grid Pattern Demo"),
         ),
         body: CustomScrollView(slivers: [
           SliverGrid(
             gridDelegate: SliverGridPatternDelegate(patterns: [
-              PatternNTiles(tileHeight: 100, nb: 4),
+              PatternNTiles(tileHeight: 150, nb: 3),
+              PatternRow(patterns: [
+                PatternNTiles(tileHeight: 150, nb: 1),
+                PatternNTiles(tileHeight: 150, nb: 2),
+              ]),
               PatternRow(patterns: [
                 PatternCol(patterns: [
-                  PatternNTiles(tileHeight: 50, nb: 2),
-                  PatternNTiles(tileHeight: 100, nb: 3),
-                  PatternNTiles(tileHeight: 50, nb: 2),
+                  PatternNTiles(tileHeight: 200, nb: 1),
+                  PatternNTiles(tileHeight: 200, nb: 1),
                 ]),
-                PatternNTiles(tileHeight: 200, nb: 2),
+                PatternNTiles(tileHeight: 400, nb: 1),
               ]),
-              PatternRow(patterns: [
-                PatternNTiles(tileHeight: 200, nb: 2),
-                PatternNTiles(tileHeight: 200, nb: 1),
-                PatternCol(patterns: [
-                  PatternNTiles(tileHeight: 100, nb: 2),
-                  PatternNTiles(tileHeight: 100, nb: 3),
-                ])
-              ]),
+              PatternNTiles(tileHeight: 300, nb: 1),
             ]),
             delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
+              int assetIndex = index % 10;
               return Container(
                 margin: const EdgeInsets.all(5.0),
                 color: _colorFromIndex(index),
-                child: Text("Tile $index"),
+                child: Stack(children: [
+                  Center(
+                      child: Image(
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                          image: AssetImage("assets/$assetIndex.webp"))),
+                  Text(
+                    "Tile $index",
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  )
+                ]),
               );
             }),
           )
