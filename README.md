@@ -1,6 +1,6 @@
-
-
 # flutter_grid_patterm
+
+[![Pub](https://img.shields.io/pub/v/flutter_grid_pattern)](https://pub.dev/packages/flutter_grid_pattern)
 
 Flutter Sliver Grid delegate that allow to generate box patterns for SliverGrid.
 

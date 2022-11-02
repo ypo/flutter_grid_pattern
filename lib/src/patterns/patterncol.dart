@@ -1,6 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'pattern.dart';
 
+/// Create a column that contains a list of patterns
 class PatternCol extends Pattern {
   /// List of patterns contained inside this column
   final List<Pattern> patterns;
