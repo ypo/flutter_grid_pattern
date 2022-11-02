@@ -2,7 +2,9 @@ import 'package:flutter/rendering.dart';
 import 'pattern.dart';
 
 class PatternCol extends Pattern {
+  /// List of patterns contained inside this column
   final List<Pattern> patterns;
+
   int _totalNbTiles = 0;
   double _totalHeight = 0.0;
   PatternCol({required this.patterns});

@@ -1,10 +1,15 @@
 import 'package:flutter/rendering.dart';
 import 'pattern.dart';
 
+/// Create a patterns of [nb] tiles, horizontally aligned
 class PatternNTiles extends Pattern {
+  /// Height of a tile
   final double tileHeight;
-  double _tileWidth = 0;
+
+  /// Number of tiles in this pattern
   final int nb;
+
+  double _tileWidth = 0;
 
   PatternNTiles({required this.tileHeight, required this.nb});
 

@@ -1,8 +1,11 @@
 import 'package:flutter/rendering.dart';
 import 'pattern.dart';
 
+/// Create a row that contains a list of patterns
 class PatternRow extends Pattern {
+  /// List of patterns contained inside this row
   final List<Pattern> patterns;
+
   double _height = 0.0;
   int _nbTiles = 0;
   double _crossAxisExtentConstraintChild = 0.0;

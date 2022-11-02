@@ -73,7 +73,31 @@ SliverGridPatternDelegate(patterns: [
 )
 ```
 
-![result](https://raw.githubusercontent.com/ypo/flutter_grid_pattern/master/web/ntiles.webp)
+### [Pattern2Tiles](https://github.com/ypo/flutter_grid_pattern/blob/master/lib/src/patterns/pattern2tiles.dart)
+
+
+Create 2 tiles aligned horizontally. Tiles have the same height. Width is defined by a ratio.
+
+| Parameter |  Description  |
+| ------------ |  ------------ |
+| tileHeight  | Height of the tiles |
+| ratio | Width ratio, corresponds to width of tile1 over width of tile2 |
+
+### Example
+
+```dart
+// Pattern composed of
+// 2 tiles with width of 1/3 and 2/3
+// followed by
+// 2 tiles with width of 2/3 and 1/3
+SliverGridPatternDelegate(patterns: [
+    Pattern2Tiles(tileHeight: 150, ratio: 1/3.0),
+    Pattern2Tiles(tileHeight: 150, ratio: 2/3.0),
+]),
+)
+```
+
+![result](https://raw.githubusercontent.com/ypo/flutter_grid_pattern/master/web/2tiles.webp)
 
 ### [PatternRow](https://github.com/ypo/flutter_grid_pattern/blob/master/lib/src/patterns/patternrow.dart)
 

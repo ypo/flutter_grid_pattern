@@ -67,7 +67,7 @@ class GridPatternDemo extends StatelessWidget {
               PatternNTiles(tileHeight: 150, nb: 3),
               PatternRow(patterns: [
                 PatternNTiles(tileHeight: 150, nb: 1),
-                PatternNTiles(tileHeight: 150, nb: 2),
+                Pattern2Tiles(tileHeight: 150, ratio: 0.3),
               ]),
               PatternRow(patterns: [
                 PatternCol(patterns: [
@@ -76,7 +76,7 @@ class GridPatternDemo extends StatelessWidget {
                 ]),
                 PatternNTiles(tileHeight: 400, nb: 1),
               ]),
-              PatternNTiles(tileHeight: 300, nb: 1),
+              Pattern2Tiles(tileHeight: 300, ratio: 0.33),
             ]),
             delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
